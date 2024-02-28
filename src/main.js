@@ -22,13 +22,17 @@ const gallery = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
   });
 
-  if (elem.list.childElementCount > 0) {
-    elem.list.innerHTML = '';
-  }
+//   if (elem.list.childElementCount > 0) {
+//     elem.list.innerHTML = '';
+//   }
 
 function handlerSubmit(evt) {
   elem.loader.classList.remove('hidden');
   evt.preventDefault();
+
+  if (elem.list.childElementCount > 0) {
+    elem.list.innerHTML = '';
+  }
 
   getImages().then(data => {
     const images = data.hits;
@@ -47,7 +51,7 @@ function handlerSubmit(evt) {
     elem.list.innerHTML = createMarkup(images);
 
     gallery.refresh();
-  });
+  })
 
   evt.currentTarget.reset();
 }
