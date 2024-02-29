@@ -56,31 +56,39 @@ function handlerSubmit(evt) {
   });
 
   evt.currentTarget.reset();
-  
 }
 
 elem.loadMoreBtn.addEventListener('click', handlerLoadMore);
 
 function handlerLoadMore() {
-  // elem.loaderLoadMore.classList.remove('hidden');
+  elem.loaderLoadMore.classList.remove('hidden');
   currentPage += 1;
-  
-
-  console.log(currentPage);
 
   getImages(currentPage, currentQuery).then(data => {
     const images = data.hits;
 
     elem.list.insertAdjacentHTML('beforeend', createMarkup(images));
+    console.dir(elem.list.children[0]);
 
     gallery.refresh();
 
-    console.log(data.totalHits);
+    const hightItem = Math.round(
+      elem.list.children[0].getBoundingClientRect().height
+    );
 
-    // if(data.totalHits >= 500) {
-    //   elem.loadMoreBtn.classList.replace('load-more', 'hidden')
-    // }
-  })
-  elem.loader.remove()
+    window.scrollBy(0, hightItem * 2);
 
+    if (elem.list.childElementCount >= data.totalHits) {
+      elem.loadMoreBtn.classList.replace('load-more', 'hidden');
+      iziToast.show({
+        message: `We're sorry, but you've reached the end of search results.`,
+        backgroundColor: '#EF4040',
+        messageColor: '#FAFAFB',
+        position: 'bottomCenter',
+      });
+    }
+  });
+  elem.loader.remove();
 }
+
+function scroll(hight) {}
