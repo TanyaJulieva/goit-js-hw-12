@@ -3,6 +3,7 @@ import axios from 'axios';
 const elem = {
   input: document.querySelector('.input-js'),
   loader: document.querySelector('.js-loader'),
+  loaderLoadMore: document.querySelector('.js-loader-load-more'),
 };
 
 async function getImages(currentPage, query) {
@@ -24,7 +25,8 @@ async function getImages(currentPage, query) {
   } catch (error) {
     alert('Error while fetching images from pixabay!');
   } finally {
-    elem.loader.remove();
+    elem.loader.classList.replace('loader', 'hidden');
+    elem.loaderLoadMore.classList.replace('loader-load-more', 'hidden');
   }
 }
 

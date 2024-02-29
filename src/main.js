@@ -25,7 +25,7 @@ let currentPage;
 let currentQuery;
 
 function handlerSubmit(evt) {
-  elem.loader.classList.remove('hidden');
+  elem.loader.classList.replace('hidden', 'loader');
   evt.preventDefault();
 
   const query = evt.target.elements.query.value;
@@ -48,7 +48,7 @@ function handlerSubmit(evt) {
 
     elem.list.insertAdjacentHTML('beforeend', createMarkup(images));
 
-    elem.loadMoreBtn.classList.replace('load-more-hidden', 'load-more');
+    elem.loadMoreBtn.classList.replace('hidden', 'load-more');
     gallery.refresh();
 
     currentQuery = query;
@@ -61,7 +61,8 @@ function handlerSubmit(evt) {
 elem.loadMoreBtn.addEventListener('click', handlerLoadMore);
 
 function handlerLoadMore() {
-  elem.loaderLoadMore.classList.remove('hidden');
+  elem.loaderLoadMore.classList.replace('hidden', 'loader-load-more');
+ 
   currentPage += 1;
 
   getImages(currentPage, currentQuery).then(data => {
