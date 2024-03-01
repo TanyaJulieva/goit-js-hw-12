@@ -31,10 +31,6 @@
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
 }
 
 @keyframes rotation {
@@ -192,7 +188,4 @@ body {
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.load-more-hidden {
-  display: none;
-}
 
