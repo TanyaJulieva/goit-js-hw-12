@@ -21,6 +21,7 @@ const gallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
+const quantityElem = 15;
 let currentPage;
 let currentQuery;
 
@@ -43,7 +44,7 @@ function handlerSubmit(evt) {
 
   elem.list.innerHTML = '';
 
-  getImages(currentPage, query).then(data => {
+  getImages(currentPage, quantityElem, query).then(data => {
     const images = data.hits;
 
     if (images.length === 0) {
@@ -58,6 +59,11 @@ function handlerSubmit(evt) {
     }
 
     elem.list.insertAdjacentHTML('beforeend', createMarkup(images));
+
+    if (images.length < quantityElem) {
+      elem.loadMoreBtn.classList.replace('load-more', 'hidden');
+      return;
+    }
 
     elem.loadMoreBtn.classList.replace('hidden', 'load-more');
     gallery.refresh();
@@ -76,7 +82,7 @@ function handlerLoadMore() {
 
   currentPage += 1;
 
-  getImages(currentPage, currentQuery).then(data => {
+  getImages(currentPage, quantityElem, currentQuery).then(data => {
     const images = data.hits;
 
     elem.list.insertAdjacentHTML('beforeend', createMarkup(images));
