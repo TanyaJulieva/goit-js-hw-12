@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const elem = {
-  input: document.querySelector('.input-js'),
   loader: document.querySelector('.js-loader'),
   loaderLoadMore: document.querySelector('.js-loader-load-more'),
 };

@@ -28,7 +28,18 @@ function handlerSubmit(evt) {
   elem.loader.classList.replace('hidden', 'loader');
   evt.preventDefault();
 
-  const query = evt.target.elements.query.value;
+  const query = evt.target.elements.query.value.trim();
+
+  if (query === '') {
+    iziToast.show({
+      message: 'Please, fill in the request field!',
+      backgroundColor: '#EF4040',
+      messageColor: '#FAFAFB',
+      position: 'topCenter',
+    });
+    elem.loader.classList.replace('loader', 'hidden');
+    return;
+  }
 
   elem.list.innerHTML = '';
 
@@ -62,14 +73,13 @@ elem.loadMoreBtn.addEventListener('click', handlerLoadMore);
 
 function handlerLoadMore() {
   elem.loaderLoadMore.classList.replace('hidden', 'loader-load-more');
- 
+
   currentPage += 1;
 
   getImages(currentPage, currentQuery).then(data => {
     const images = data.hits;
 
     elem.list.insertAdjacentHTML('beforeend', createMarkup(images));
-    console.dir(elem.list.children[0]);
 
     gallery.refresh();
 
@@ -77,7 +87,10 @@ function handlerLoadMore() {
       elem.list.children[0].getBoundingClientRect().height
     );
 
-    window.scrollBy(0, hightItem * 2);
+    window.scrollBy({
+      top: hightItem * 2,
+      behavior: 'smooth',
+    });
 
     if (elem.list.childElementCount >= data.totalHits) {
       elem.loadMoreBtn.classList.replace('load-more', 'hidden');
@@ -89,7 +102,4 @@ function handlerLoadMore() {
       });
     }
   });
-  elem.loader.remove();
 }
-
-function scroll(hight) {}
