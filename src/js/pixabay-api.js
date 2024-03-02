@@ -5,10 +5,10 @@ const elem = {
   loaderLoadMore: document.querySelector('.js-loader-load-more'),
 };
 
-async function getImages(currentPage, quantity, query) {
+async function getImages(page, quantity, query) {
   try {
     const searchParams = new URLSearchParams({
-      page: currentPage,
+      page: page,
       per_page: quantity,
       key: '42470360-53d39d66a700555aa13e5c54c',
       q: query,

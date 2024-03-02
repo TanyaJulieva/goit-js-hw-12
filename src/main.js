@@ -30,6 +30,7 @@ function handlerSubmit(evt) {
   evt.preventDefault();
 
   const query = evt.target.elements.query.value.trim();
+  currentPage = 1;
 
   if (query === '') {
     iziToast.show({
@@ -69,7 +70,6 @@ function handlerSubmit(evt) {
     gallery.refresh();
 
     currentQuery = query;
-    currentPage = 1;
   });
 
   evt.currentTarget.reset();
